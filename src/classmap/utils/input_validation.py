@@ -1,5 +1,4 @@
 
-
 def get_postive_int(prompt: str) -> int:
     """
     Prompt the user for a positive integer until valid input is received.
@@ -11,7 +10,10 @@ def get_postive_int(prompt: str) -> int:
     :rtype: int
     """
     
-    while True:
+    valid = False
+    value = 0
+    
+    while not valid:
         try:
             value: int = int(input(prompt))
             
@@ -19,7 +21,9 @@ def get_postive_int(prompt: str) -> int:
                 print("Please enter a positive integer.")
                 continue
             
-            return value
+            valid = True
         
         except ValueError:
             print("Invalid input. Please enter a valid integer.")
+    
+    return value
