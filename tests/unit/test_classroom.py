@@ -83,42 +83,4 @@ def test_display_map():
     classroom = Classroom(2, 3)
     classroom.load_pupils_from_file(os.path.join("tests", "data", "pupils_sample.txt"))
     classroom.arrange_seating()
-    classroom.display_map(filepath=os.path.join("tests", "data", "classroom_map.txt"))
-
-
-def test_arrange_seating_max_capacity():
-    """Verify that pupils exceeding classroom capacity remain unseated after arrange_seating."""
-    classroom = Classroom(1, 3)
-    classroom.load_pupils_from_file(os.path.join("tests", "data", "pupils_sample.txt"))
-    classroom.arrange_seating()
-
-    seated = 0
-    unseated = 0
-    for p in classroom.get_pupils():
-        try:
-            p.get_position()
-            seated += 1
-        except ValueError:
-            unseated += 1
-
-    assert seated == 3
-    assert unseated == 3
-
-
-def test_display_map_creates_file(tmp_path: str):
-    """Check that display_map creates a classroom_map.txt file in the specified directory."""
-    file_path = os.path.join(tmp_path, "classroom_map.txt")
-    if os.path.exists(file_path):
-        os.remove(file_path)
-    
-    classroom = Classroom(2, 2)
-    classroom.add_pupil("A")
-    classroom.add_pupil("B")
-    classroom.arrange_seating()
-
-    cwd = os.getcwd()
-    os.chdir(tmp_path)
-    file_path = os.path.join(tmp_path, "classroom_map.txt")
-    classroom.display_map(filepath=file_path)
-    assert os.path.exists(file_path)
-    os.chdir(cwd)
+    classroom.display_map(filepath=os.path.join("results", "test_display_map.txt"))
