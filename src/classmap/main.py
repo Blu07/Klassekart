@@ -1,34 +1,23 @@
-
-from models.classroom import Classroom
-from utils.input_validation import get_postive_int
+import os
+from models import Classroom
+from utils import create_classroom_from_file, create_classroom_from_console
 
 def main():
+    classroom: Classroom
     
-    # Ask for classroom dimentions
-    num_rows: int = get_postive_int("Enter number of rows in the classroom: ")
-    num_columns: int = get_postive_int("Enter number of columns in the classroom: ")
-
-    classroom = Classroom(num_rows=num_rows, num_columns=num_columns)
+    save_filepath = os.path.join("results", "classroom_map.txt")
     
-    print("Enter pupil names one at a time. Type 'exit' to finish.")
+    # Ask whether to load pupils and classroom dimensions from file or manually
+    read_from_file_or_manual = input("Load pupils from file? (y/n): ").strip().lower()
     
-    count = 0
-    while count < (num_rows * num_columns):
-        name = input("Enter pupil name: ")
-        if name.lower() == 'exit':
-            break
-        
-        # Empty names are empty seats. Skip adding pupil, but count towards capacity.
-        if name.strip() == "":
-            count += 1
-            continue
-        
-        classroom.add_pupil(name)
-        count += 1
+    # Create classroom based on user choice
+    if read_from_file_or_manual == 'y': classroom = create_classroom_from_file()
+    else: classroom = create_classroom_from_console()
     
+    # Arrange seating and display map
     classroom.arrange_seating()
-    classroom.display_map(filepath="classroom_map.txt", printout=True)
-    print("Classroom map saved to 'classroom_map.txt'.")
+    classroom.display_map(filepath=save_filepath, printout=True)
+    print(f"Classroom map saved to {save_filepath}")
 
 
 
