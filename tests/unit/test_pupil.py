@@ -1,5 +1,5 @@
 import pytest
-from src.classmap import Pupil
+from classmap.models import Pupil
 
 def test_create_pupil():
     pupil = Pupil(name="John Doe")

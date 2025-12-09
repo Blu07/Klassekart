@@ -1,6 +1,6 @@
 import pytest
 import os
-from src.classmap import Classroom, Pupil
+from classmap.models import Classroom, Pupil
 
 
 def test_create_classroom():
