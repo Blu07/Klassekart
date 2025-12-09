@@ -56,6 +56,21 @@ class Classroom:
         """
         return self._pupils
 
+    def load_pupils_from_file(self, filepath: str) -> None:
+        """
+        Load pupils from a file and add them to the classroom.
+
+        :param filepath: Description
+        :type filepath: str
+        """
+
+        with open(filepath, 'r') as file:
+            # File contains one name per line, no headers and no extra characters
+            loaded_pupil_names = [line.strip() for line in file.readlines()]
+
+            for name in loaded_pupil_names:
+                self.add_pupil(name)
+
     def arrange_seating(self) -> None:
         """
         Arrange random seating for all pupils in the classroom.
@@ -131,18 +146,3 @@ class Classroom:
 
                 if printout:
                     print(" ".join(row_display).ljust(width))
-
-    def load_pupils_from_file(self, filepath: str) -> None:
-        """
-        Load pupils from a file and add them to the classroom.
-
-        :param filepath: Description
-        :type filepath: str
-        """
-
-        with open(filepath, 'r') as file:
-            # File contains one name per line, no headers and no extra characters
-            loaded_pupil_names = [line.strip() for line in file.readlines()]
-
-            for name in loaded_pupil_names:
-                self.add_pupil(name)
