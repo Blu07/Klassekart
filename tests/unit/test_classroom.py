@@ -52,13 +52,15 @@ def test_display_map_position_conflict():
     b.set_position(0, 0)
 
     with pytest.raises(ValueError):
-        classroom.display_map(filepath=os.path.join("tests", "data", "conflict_map.txt"))
+        classroom.display_map(filepath=os.path.join(
+            "tests", "data", "conflict_map.txt"))
 
 
 def test_load_pupils_from_file():
     """Check that load_pupils_from_file correctly loads pupils from a text file."""
     classroom = Classroom(2, 3)
-    classroom.load_pupils_from_file(os.path.join("tests", "data", "pupils_sample.txt"))
+    classroom.load_pupils_from_file(
+        os.path.join("tests", "data", "pupils_sample.txt"))
     names = [p.name for p in classroom.get_pupils()]
     assert names == ["Adam", "Blu", "Claire", "David", "Even", "Friedreich"]
 
@@ -66,21 +68,24 @@ def test_load_pupils_from_file():
 def test_arrange_seating():
     """Ensure arrange_seating assigns unique positions to all pupils."""
     classroom = Classroom(2, 3)
-    classroom.load_pupils_from_file(os.path.join("tests", "data", "pupils_sample.txt"))
+    classroom.load_pupils_from_file(
+        os.path.join("tests", "data", "pupils_sample.txt"))
     classroom.arrange_seating()
-    
+
     positions: set[tuple[int, int]] = set()
     for pupil in classroom.get_pupils():
         pos = pupil.get_position()
         assert pos not in positions
         positions.add(pos)
-        
+
     assert len(positions) == 6
 
 
 def test_display_map():
     """Check that display_map runs without errors after seating arrangement."""
     classroom = Classroom(2, 3)
-    classroom.load_pupils_from_file(os.path.join("tests", "data", "pupils_sample.txt"))
+    classroom.load_pupils_from_file(
+        os.path.join("tests", "data", "pupils_sample.txt"))
     classroom.arrange_seating()
-    classroom.display_map(filepath=os.path.join("results", "test_display_map.txt"))
+    classroom.display_map(filepath=os.path.join(
+        "results", "test_display_map.txt"))
