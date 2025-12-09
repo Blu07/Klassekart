@@ -10,6 +10,7 @@ class Pupil:
         :param name: The name of the pupil
         :type name: str
         """
+        
         self.name: str = name
         self._row: int | None = None
         self._column: int | None = None
@@ -45,6 +46,3 @@ class Pupil:
             raise ValueError("Column not set for this pupil.")
 
         return self._row, self._column
-
-    def __repr__(self):
-        return f"Pupil(name={self.name}, row={self._row}, col={self._column})"
