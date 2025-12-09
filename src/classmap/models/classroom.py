@@ -56,6 +56,29 @@ class Classroom:
         """
         return self._pupils
 
+    def arrange_seating(self) -> None:
+        """
+        Arrange random seating for all pupils in the classroom.
+
+        """
+
+        # Go through each position row by row, column by column
+        # Choose a random pupil to be seated at the current position
+
+        pupils_not_seated = self._pupils.copy()
+
+        for row in range(self._num_rows):
+            for col in range(self._num_columns):
+
+                # All pupils are seated
+                if not pupils_not_seated:
+                    return
+
+                # Select a random pupil who is not yet seated
+                pupil_to_be_seated = choice(pupils_not_seated)
+                pupil_to_be_seated.set_position(row, col)
+                pupils_not_seated.remove(pupil_to_be_seated)
+
     def display_map(self, filepath: str = "classroom_map.txt", printout: bool = False) -> None:
         """
         Create a 2D array representing the classroom layout.
@@ -108,29 +131,6 @@ class Classroom:
 
                 if printout:
                     print(" ".join(row_display).ljust(width))
-
-    def arrange_seating(self) -> None:
-        """
-        Arrange random seating for all pupils in the classroom.
-
-        """
-
-        # Go through each position row by row, column by column
-        # Choose a random pupil to be seated at the current position
-
-        pupils_not_seated = self._pupils.copy()
-
-        for row in range(self._num_rows):
-            for col in range(self._num_columns):
-
-                # All pupils are seated
-                if not pupils_not_seated:
-                    return
-
-                # Select a random pupil who is not yet seated
-                pupil_to_be_seated = choice(pupils_not_seated)
-                pupil_to_be_seated.set_position(row, col)
-                pupils_not_seated.remove(pupil_to_be_seated)
 
     def load_pupils_from_file(self, filepath: str) -> None:
         """
